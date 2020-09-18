@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"github.com/gin-gonic/gin"
+	"example/services"
 )
 
 func GetUsers(c *gin.Context) {
@@ -65,4 +66,26 @@ func DeleteUser(c *gin.Context){
 	} else {
 		c.JSON(http.StatusOK, gin.H{"id" + id: "is deleted"})
 	}
+}
+
+func Login(c *gin.Context) {
+	var user models.User
+	if err:= c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, "Invalid json provided")
+		return
+	}
+	
+	if err:= models.GetUserByUsernameAndPassword(&user); err!= nil {
+		 c.JSON(http.StatusUnprocessableEntity, err.Error())
+		 return
+	 }
+
+	 token, err := services.CreateToken(user.Id)
+	 
+	 if err != nil {
+		 c.JSON(http.StatusUnprocessableEntity, err.Error())
+	   return
+		}
+
+		c.JSON(http.StatusOK, token)
 }

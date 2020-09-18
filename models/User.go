@@ -35,6 +35,14 @@ func UpdateUser(user *User, id string) (err error) {
 
 func DeleteUser(user *User, id string) (err error){
 	fmt.Println(user)
-	config.DB.Save(user)
+	config.DB.Where("id = ?", id).Delete(user)
 	return nil
 }
+
+func GetUserByUsernameAndPassword(user *User) (err error) {
+	if err = config.DB.Where("username = ? AND password = ?", user.Username , user.Password).Find(user).Error; err !=nil {
+		return err
+	}
+	return nil
+}
+
