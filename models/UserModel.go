@@ -1,13 +1,17 @@
 package models
 
+import "time"
+
 type User struct {
-	Id			uint 	`gorm:"primary_key; auto_increment" json:"id"`
-	Name		string 	`gorm:"size:255; not null" json:"name"`
-	Email		string	`gorm:"size:100; not null; unique" json:"email"`
-	Phone		string	`json:"phone"`
-	Address		string	`gorm:"size:255" json:"address"`
-	Username 	string 	`gorm:"size:100; not null; unique" json:"username"`
-	Password 	string	`gorm:"size:100;not null;" json:"password"`
+	Id			uint 		`gorm:"primary_key; auto_increment" json:"id"`
+	Name		string 		`gorm:"size:255; not null" json:"name"`
+	Email		string		`gorm:"size:100; not null; unique" json:"email"`
+	Phone		string		`json:"phone"`
+	Address		string		`gorm:"size:255" json:"address"`
+	Username 	string 		`gorm:"size:100; not null; unique" json:"username"`
+	Password 	string		`gorm:"size:100;not null;" json:"password"`
+	CreatedAt 	time.Time	`gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
+	UpdateAt	time.Time	`gorm:"default:CURRENT_TIMESTAMP" json:"update_at"`
 }
 
 type UserResponse struct {
