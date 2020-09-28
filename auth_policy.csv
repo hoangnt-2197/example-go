@@ -1,0 +1,7 @@
+p, USER, /user-api/login, POST
+p, USER, /user-api/user/:id, GET
+p, USER, /user-api/user/:id, *
+p, ADMIN, /user-api/login, POST
+p, ADMIN, /user-api/user/*, GET
+p, ADMIN, /user-api/user, POST
+p, ADMIN, /user-api/users, GET
