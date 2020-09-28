@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type User struct {
 	Id			uint 		`gorm:"primary_key; auto_increment" json:"id"`
@@ -12,6 +14,8 @@ type User struct {
 	Password 	string		`gorm:"size:100;not null;" json:"password"`
 	CreatedAt 	time.Time	`gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdateAt	time.Time	`gorm:"default:CURRENT_TIMESTAMP" json:"update_at"`
+	RoleId		uint		`gorm:"not null" json:"id"`
+	Role		Role
 }
 
 type UserResponse struct {
@@ -21,6 +25,7 @@ type UserResponse struct {
 	Phone		string	`json:"phone"`
 	Address		string	`json:"address"`
 	Username 	string 	`json:"username"`
+	Role		Role
 }
 
 func (user *User)  TableName() string{

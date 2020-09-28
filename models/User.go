@@ -28,7 +28,7 @@ func CreateUser(user *User) (err error) {
 }
 
 func GetUserByID(user *User, id string) (err error) {
-	if err = config.DB.Where("id = ?", id).Take(user).Error; err != nil {
+	if err = config.DB.Preload("Role").Where("id = ?", id).Take(user).Error; err != nil {
 		return err
 	}
 	return nil
@@ -60,7 +60,6 @@ func GetUserByUsernameAndPassword(user *User, username string, password string) 
 	if err = config.DB.Where("username = ? ", username).Find(user).Error; err != nil {
 		return err
 	}
-    fmt.Println(username, password, user.Password)
 	if err = VerifyPassword(user.Password, password); err != nil && err == bcrypt.ErrMismatchedHashAndPassword {
 		return err
 	}

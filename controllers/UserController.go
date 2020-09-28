@@ -112,6 +112,7 @@ func TransferUser(user models.User) models.UserResponse {
 	userResponse.Phone		= user.Phone
 	userResponse.Address 	= user.Address
 	userResponse.Username	= user.Username
+	userResponse.Role		= user.Role
 	return userResponse
 }
 
